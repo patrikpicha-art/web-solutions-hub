@@ -160,10 +160,10 @@
 
 /* ---------- 3D orbit engine ---------- */
 .orbit-scene {
-  --radius: 380px;
-  --cw: 250px;
-  --ch: 130px;
-  --cd: 10px;
+  --radius: 400px;
+  --cw: 256px;
+  --ch: 136px;
+  --cd: 22px;
   position: relative;
   width: 100%;
   height: 620px;
