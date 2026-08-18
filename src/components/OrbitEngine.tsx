@@ -79,8 +79,13 @@ export function OrbitEngine() {
         const facing = Math.cos(((angle + i * step) * Math.PI) / 180);
         const depth = (facing + 1) / 2; // 0 (back) .. 1 (front)
         el.style.zIndex = String(Math.round(depth * 100));
-        el.style.opacity = String(0.4 + depth * 0.6);
-        el.style.filter = `brightness(${0.55 + depth * 0.45}) blur(${(1 - depth) * 1.6}px)`;
+        // opacity/filter must stay on leaf faces, otherwise 3D depth gets flattened
+        const o = String(0.45 + depth * 0.55);
+        const b = `brightness(${0.6 + depth * 0.4})`;
+        el.querySelectorAll<HTMLElement>(".orbit-face").forEach((f) => {
+          f.style.opacity = o;
+          f.style.filter = b;
+        });
         const conn = el.querySelector<HTMLElement>(".orbit-connector");
         if (conn) conn.style.opacity = String(0.18 + depth * 0.42);
       });
