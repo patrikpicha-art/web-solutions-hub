@@ -281,12 +281,14 @@
   overflow: hidden;
 }
 .orbit-front {
+  backface-visibility: hidden;
   width: var(--cw);
   height: var(--ch);
   transform: translateZ(calc(var(--cd) / 2));
   padding: 0 1rem;
 }
 .orbit-plate {
+  backface-visibility: hidden;
   width: var(--cw);
   height: var(--ch);
   transform: translateZ(calc(var(--cd) / -1));
