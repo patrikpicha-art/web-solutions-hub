@@ -163,7 +163,7 @@
   --radius: 380px;
   --cw: 250px;
   --ch: 130px;
-  --cd: 22px;
+  --cd: 10px;
   position: relative;
   width: 100%;
   height: 620px;
@@ -182,7 +182,7 @@
     --radius: 215px;
     --cw: 190px;
     --ch: 110px;
-    --cd: 16px;
+    --cd: 8px;
     height: 460px;
   }
 }

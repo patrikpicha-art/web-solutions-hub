@@ -76,8 +76,8 @@ export function OrbitEngine() {
       const step = 360 / modules.length;
       modules.forEach((el, i) => {
         const facing = Math.cos(((angle + i * step) * Math.PI) / 180);
-        const t = (facing + 1) / 2; // 0 = back, 1 = front
-        const o = 0.1 + 0.9 * Math.pow(t, 1.8);
+        const t = Math.max(0, facing); // 0 = side/back, 1 = front
+        const o = 0.06 + 0.94 * Math.pow(t, 1.1);
         el.querySelectorAll<HTMLElement>(".orbit-face").forEach((f) => {
           f.style.opacity = String(o);
         });
