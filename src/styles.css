@@ -142,3 +142,239 @@
     color: var(--color-foreground);
   }
 }
+
+/* ---------- FEROXA brand tokens ---------- */
+:root {
+  --feroxa-bg: oklch(0.16 0.02 200);
+  --feroxa-cyan: oklch(0.82 0.15 178);
+  --feroxa-blue: oklch(0.66 0.17 250);
+  --feroxa-panel: oklch(0.21 0.02 210);
+}
+
+@theme inline {
+  --color-feroxa-bg: var(--feroxa-bg);
+  --color-feroxa-cyan: var(--feroxa-cyan);
+  --color-feroxa-blue: var(--feroxa-blue);
+  --color-feroxa-panel: var(--feroxa-panel);
+}
+
+/* ---------- 3D orbit engine ---------- */
+.orbit-scene {
+  --radius: 340px;
+  --cw: 250px;
+  --ch: 130px;
+  --cd: 22px;
+  position: relative;
+  width: 100%;
+  height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;
+  cursor: grab;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.orbit-scene:active { cursor: grabbing; }
+
+@media (max-width: 768px) {
+  .orbit-scene {
+    --radius: 215px;
+    --cw: 190px;
+    --ch: 110px;
+    --cd: 16px;
+    height: 460px;
+  }
+}
+
+.orbit-carousel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(-10deg);
+}
+
+.orbit-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+}
+.orbit-ring {
+  position: absolute;
+  top: -105px;
+  left: -105px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in oklab, var(--feroxa-blue) 40%, transparent);
+}
+.orbit-ring.r1 { transform: rotateX(90deg); border: 1px solid color-mix(in oklab, var(--feroxa-cyan) 25%, transparent); }
+.orbit-ring.r2 { transform: rotateX(90deg) rotateY(60deg); }
+.orbit-ring.r3 { transform: rotateX(90deg) rotateY(-60deg); }
+
+.orbit-sphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, oklch(0.4 0.03 210) 0%, oklch(0.17 0.02 210) 45%, oklch(0.08 0.01 210) 85%),
+    radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--feroxa-cyan) 45%, transparent) 0%, transparent 55%);
+  border: 1px solid color-mix(in oklab, var(--feroxa-cyan) 25%, transparent);
+  box-shadow: 0 0 60px color-mix(in oklab, var(--feroxa-cyan) 30%, transparent);
+  animation: orbit-pulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes orbit-pulse {
+  from { box-shadow: 0 0 30px color-mix(in oklab, var(--feroxa-cyan) 18%, transparent); }
+  to { box-shadow: 0 0 70px color-mix(in oklab, var(--feroxa-cyan) 40%, transparent); }
+}
+
+.orbit-module {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+}
+
+.orbit-connector {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: calc(var(--radius) - 85px);
+  transform-origin: left center;
+  transform: rotateY(-90deg) translateX(62px);
+  background: linear-gradient(to right, transparent, color-mix(in oklab, var(--feroxa-cyan) 80%, transparent));
+  opacity: 0.55;
+}
+
+.orbit-card {
+  position: absolute;
+  width: var(--cw);
+  height: var(--ch);
+  top: calc(var(--ch) / -2);
+  left: calc(var(--cw) / -2);
+  transform-style: preserve-3d;
+  transform: translateZ(var(--radius));
+  transition: transform 0.35s ease;
+}
+.orbit-module:hover .orbit-card {
+  transform: translateZ(calc(var(--radius) + 22px));
+}
+
+.orbit-face {
+  position: absolute;
+  background: oklch(0.19 0.02 210);
+  border: 1px solid color-mix(in oklab, var(--feroxa-cyan) 28%, transparent);
+  box-shadow: inset 0 0 24px oklch(0.08 0.01 210 / 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.orbit-front {
+  width: var(--cw);
+  height: var(--ch);
+  transform: translateZ(calc(var(--cd) / 2));
+  padding: 0 1rem;
+}
+.orbit-back {
+  width: var(--cw);
+  height: var(--ch);
+  transform: rotateY(180deg) translateZ(calc(var(--cd) / 2));
+  background: oklch(0.14 0.015 210);
+}
+.orbit-right {
+  width: var(--cd);
+  height: var(--ch);
+  transform: rotateY(90deg) translateZ(calc(var(--cw) / 2));
+  background: oklch(0.12 0.015 210);
+}
+.orbit-left {
+  width: var(--cd);
+  height: var(--ch);
+  transform: rotateY(-90deg) translateZ(calc(var(--cw) / 2));
+  background: oklch(0.12 0.015 210);
+}
+.orbit-top {
+  width: var(--cw);
+  height: var(--cd);
+  transform: rotateX(90deg) translateZ(calc(var(--ch) / 2));
+  background: oklch(0.24 0.02 210);
+}
+.orbit-bottom {
+  width: var(--cw);
+  height: var(--cd);
+  transform: rotateX(-90deg) translateZ(calc(var(--ch) / 2));
+  background: oklch(0.1 0.01 210);
+}
+
+.orbit-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: oklch(0.98 0 0);
+  text-shadow: 0 0 18px color-mix(in oklab, var(--feroxa-cyan) 55%, transparent);
+}
+.orbit-desc {
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: oklch(0.78 0.01 210);
+  max-width: 15rem;
+}
+.orbit-label {
+  position: absolute;
+  top: 9px;
+  left: 13px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: oklch(0.75 0.01 210 / 0.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.orbit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--feroxa-cyan);
+  box-shadow: 0 0 8px var(--feroxa-cyan);
+  animation: orbit-blink 1.6s infinite;
+}
+@keyframes orbit-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.orbit-sub {
+  position: absolute;
+  bottom: 9px;
+  right: 13px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: oklch(0.75 0.01 210 / 0.4);
+}
+.orbit-backlogo {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: oklch(0.8 0.01 210 / 0.16);
+}
+
+.orbit-module:nth-child(2n) .orbit-face { border-color: color-mix(in oklab, var(--feroxa-blue) 32%, transparent); }
+.orbit-module:nth-child(2n) .orbit-title { text-shadow: 0 0 18px color-mix(in oklab, var(--feroxa-blue) 55%, transparent); }
+.orbit-module:nth-child(2n) .orbit-dot { background: var(--feroxa-blue); box-shadow: 0 0 8px var(--feroxa-blue); }
+.orbit-module:nth-child(2n) .orbit-connector { background: linear-gradient(to right, transparent, color-mix(in oklab, var(--feroxa-blue) 80%, transparent)); }
