@@ -129,13 +129,7 @@ export function OrbitEngine() {
                 <div className="orbit-desc">{m.desc}</div>
                 <div className="orbit-sub">[ ACTV ]</div>
               </div>
-              <div className="orbit-face orbit-back">
-                <span className="orbit-backlogo">FEROXA // SYS</span>
-              </div>
-              <div className="orbit-face orbit-left" />
-              <div className="orbit-face orbit-right" />
-              <div className="orbit-face orbit-top" />
-              <div className="orbit-face orbit-bottom" />
+              <div className="orbit-face orbit-plate" />
             </div>
           </div>
         ))}

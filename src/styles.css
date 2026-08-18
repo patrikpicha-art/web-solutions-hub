@@ -286,35 +286,12 @@
   transform: translateZ(calc(var(--cd) / 2));
   padding: 0 1rem;
 }
-.orbit-back {
+.orbit-plate {
   width: var(--cw);
   height: var(--ch);
-  transform: rotateY(180deg) translateZ(calc(var(--cd) / 2));
-  background: oklch(0.14 0.015 210);
-}
-.orbit-right {
-  width: var(--cd);
-  height: var(--ch);
-  transform: rotateY(90deg) translateZ(calc(var(--cw) / 2));
+  transform: translateZ(calc(var(--cd) / -1));
   background: oklch(0.12 0.015 210);
-}
-.orbit-left {
-  width: var(--cd);
-  height: var(--ch);
-  transform: rotateY(-90deg) translateZ(calc(var(--cw) / 2));
-  background: oklch(0.12 0.015 210);
-}
-.orbit-top {
-  width: var(--cw);
-  height: var(--cd);
-  transform: rotateX(90deg) translateZ(calc(var(--ch) / 2));
-  background: oklch(0.24 0.02 210);
-}
-.orbit-bottom {
-  width: var(--cw);
-  height: var(--cd);
-  transform: rotateX(-90deg) translateZ(calc(var(--ch) / 2));
-  background: oklch(0.1 0.01 210);
+  border-color: color-mix(in oklab, var(--feroxa-blue) 20%, transparent);
 }
 
 .orbit-title {
