@@ -160,17 +160,17 @@
 
 /* ---------- 3D orbit engine ---------- */
 .orbit-scene {
-  --radius: 380px;
-  --cw: 250px;
-  --ch: 130px;
-  --cd: 10px;
+  --radius: 400px;
+  --cw: 256px;
+  --ch: 136px;
+  --cd: 22px;
   position: relative;
   width: 100%;
   height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1500px;
+  perspective: 1700px;
   cursor: grab;
   overflow: hidden;
   touch-action: pan-y;
@@ -262,39 +262,66 @@
   top: calc(var(--ch) / -2);
   left: calc(var(--cw) / -2);
   transform-style: preserve-3d;
-  transform: translateZ(var(--radius)) translateY(26px);
+  transform: translateZ(var(--radius)) translateY(78px);
   transition: transform 0.35s ease;
 }
 .orbit-module:hover .orbit-card {
-  transform: translateZ(calc(var(--radius) + 22px)) translateY(26px);
+  transform: translateZ(calc(var(--radius) + 34px)) translateY(78px);
 }
 
+/* real extruded slab: 6 faces */
 .orbit-face {
   position: absolute;
-  background: oklch(0.19 0.02 210);
-  border: 1px solid color-mix(in oklab, var(--feroxa-cyan) 28%, transparent);
-  box-shadow: inset 0 0 24px oklch(0.08 0.01 210 / 0.85);
+  background: oklch(0.185 0.02 210);
+  border: 1px solid color-mix(in oklab, var(--feroxa-cyan) 26%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+.orbit-front,
+.orbit-back {
+  width: var(--cw);
+  height: var(--ch);
+  left: 0;
+  top: 0;
+}
 .orbit-front {
   backface-visibility: hidden;
-  width: var(--cw);
-  height: var(--ch);
   transform: translateZ(calc(var(--cd) / 2));
   padding: 0 1rem;
+  box-shadow: inset 0 0 26px oklch(0.08 0.01 210 / 0.8);
 }
-.orbit-plate {
+.orbit-back {
   backface-visibility: hidden;
-  width: var(--cw);
-  height: var(--ch);
-  transform: translateZ(calc(var(--cd) / -1));
-  background: oklch(0.12 0.015 210);
-  border-color: color-mix(in oklab, var(--feroxa-blue) 20%, transparent);
+  transform: translateZ(calc(var(--cd) / -2)) rotateY(180deg);
+  background: oklch(0.115 0.015 210);
+  border-color: color-mix(in oklab, var(--feroxa-blue) 22%, transparent);
 }
+.orbit-side {
+  background: oklch(0.14 0.018 210);
+  border: none;
+  box-shadow: inset 0 0 10px oklch(0.05 0.01 210 / 0.9);
+}
+.orbit-side.left,
+.orbit-side.right {
+  width: var(--cd);
+  height: var(--ch);
+  top: 0;
+  left: calc(var(--cd) / -2);
+}
+.orbit-side.left { transform: rotateY(-90deg) translateZ(calc(var(--cd) / -2)); transform-origin: left center; }
+.orbit-side.right { transform: rotateY(90deg) translateZ(calc(var(--cd) / -2)); transform-origin: right center; left: calc(var(--cw) - var(--cd) / 2); }
+.orbit-side.top,
+.orbit-side.bottom {
+  width: var(--cw);
+  height: var(--cd);
+  left: 0;
+}
+.orbit-side.top { top: 0; transform-origin: center top; transform: rotateX(90deg) translateZ(calc(var(--cd) / -2)); }
+.orbit-side.bottom { top: calc(var(--ch) - var(--cd)); transform-origin: center bottom; transform: rotateX(-90deg) translateZ(calc(var(--cd) / -2)); }
+
 
 .orbit-title {
   font-size: 1.35rem;

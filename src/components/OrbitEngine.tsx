@@ -75,14 +75,19 @@ export function OrbitEngine() {
       const modules = carousel.querySelectorAll<HTMLElement>(".orbit-module");
       const step = 360 / modules.length;
       modules.forEach((el, i) => {
+        // 1 = straight at viewer, -1 = far side of the orbit
         const facing = Math.cos(((angle + i * step) * Math.PI) / 180);
-        const t = Math.max(0, facing); // 0 = side/back, 1 = front
-        const o = t < 0.18 ? 0 : Math.pow(t, 1.2);
+        const depth = (facing + 1) / 2; // 0 (back) .. 1 (front)
+        el.style.zIndex = String(Math.round(depth * 100));
+        // opacity/filter must stay on leaf faces, otherwise 3D depth gets flattened
+        const o = String(0.45 + depth * 0.55);
+        const b = `brightness(${0.6 + depth * 0.4})`;
         el.querySelectorAll<HTMLElement>(".orbit-face").forEach((f) => {
-          f.style.opacity = String(o);
+          f.style.opacity = o;
+          f.style.filter = b;
         });
         const conn = el.querySelector<HTMLElement>(".orbit-connector");
-        if (conn) conn.style.opacity = String(o * 0.55);
+        if (conn) conn.style.opacity = String(0.18 + depth * 0.42);
       });
       sphere.style.transform = `translate(-50%, -50%) rotateY(${-angle}deg) rotateX(${-tilt}deg)`;
       frame = requestAnimationFrame(loop);
@@ -129,7 +134,13 @@ export function OrbitEngine() {
                 <div className="orbit-desc">{m.desc}</div>
                 <div className="orbit-sub">[ ACTV ]</div>
               </div>
-              <div className="orbit-face orbit-plate" />
+              <div className="orbit-face orbit-back">
+                <span className="orbit-backlogo">FEROXA</span>
+              </div>
+              <span className="orbit-face orbit-side left" />
+              <span className="orbit-face orbit-side right" />
+              <span className="orbit-face orbit-side top" />
+              <span className="orbit-face orbit-side bottom" />
             </div>
           </div>
         ))}
