@@ -170,7 +170,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1500px;
+  perspective: 1700px;
   cursor: grab;
   overflow: hidden;
   touch-action: pan-y;
@@ -262,11 +262,11 @@
   top: calc(var(--ch) / -2);
   left: calc(var(--cw) / -2);
   transform-style: preserve-3d;
-  transform: translateZ(var(--radius)) translateY(26px);
+  transform: translateZ(var(--radius)) translateY(78px);
   transition: transform 0.35s ease;
 }
 .orbit-module:hover .orbit-card {
-  transform: translateZ(calc(var(--radius) + 30px)) translateY(26px);
+  transform: translateZ(calc(var(--radius) + 34px)) translateY(78px);
 }
 
 /* real extruded slab: 6 faces */
@@ -288,11 +288,13 @@
   top: 0;
 }
 .orbit-front {
+  backface-visibility: hidden;
   transform: translateZ(calc(var(--cd) / 2));
   padding: 0 1rem;
   box-shadow: inset 0 0 26px oklch(0.08 0.01 210 / 0.8);
 }
 .orbit-back {
+  backface-visibility: hidden;
   transform: translateZ(calc(var(--cd) / -2)) rotateY(180deg);
   background: oklch(0.115 0.015 210);
   border-color: color-mix(in oklab, var(--feroxa-blue) 22%, transparent);
