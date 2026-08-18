@@ -71,6 +71,16 @@ export function OrbitEngine() {
         }
       }
       carousel.style.transform = `rotateX(${tilt}deg) rotateY(${angle}deg)`;
+
+      const modules = carousel.querySelectorAll<HTMLElement>(".orbit-module");
+      const step = 360 / modules.length;
+      modules.forEach((el, i) => {
+        const facing = Math.cos(((angle + i * step) * Math.PI) / 180);
+        const t = (facing + 1) / 2; // 0 = back, 1 = front
+        el.style.opacity = String(0.12 + 0.88 * Math.pow(t, 1.6));
+        el.style.filter = `blur(${(1 - t) * 3}px)`;
+        el.style.zIndex = String(Math.round(t * 100));
+      });
       sphere.style.transform = `translate(-50%, -50%) rotateY(${-angle}deg) rotateX(${-tilt}deg)`;
       frame = requestAnimationFrame(loop);
     };
