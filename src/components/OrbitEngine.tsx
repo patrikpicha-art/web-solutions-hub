@@ -77,9 +77,12 @@ export function OrbitEngine() {
       modules.forEach((el, i) => {
         const facing = Math.cos(((angle + i * step) * Math.PI) / 180);
         const t = (facing + 1) / 2; // 0 = back, 1 = front
-        el.style.opacity = String(0.12 + 0.88 * Math.pow(t, 1.6));
-        el.style.filter = `blur(${(1 - t) * 3}px)`;
-        el.style.zIndex = String(Math.round(t * 100));
+        const o = 0.1 + 0.9 * Math.pow(t, 1.8);
+        el.querySelectorAll<HTMLElement>(".orbit-face").forEach((f) => {
+          f.style.opacity = String(o);
+        });
+        const conn = el.querySelector<HTMLElement>(".orbit-connector");
+        if (conn) conn.style.opacity = String(o * 0.55);
       });
       sphere.style.transform = `translate(-50%, -50%) rotateY(${-angle}deg) rotateX(${-tilt}deg)`;
       frame = requestAnimationFrame(loop);
